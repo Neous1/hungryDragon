@@ -52,6 +52,7 @@ var StateMain={
         this.candies.setAll("outOfBoundsKill", true);
         
         game.physics.enable([this.dragon, this.candies], Phaser.Physics.ARCADE);
+        this.dragon.body.immovable = true;
         
         this.dragon.body.gravity.y = 500;
         

@@ -5,7 +5,6 @@ var StateMain={
        if (screen.width < 1500) {
             game.scale.forceOrientation(true, false);
         }
-       // Dragon
        game.load.spritesheet("dragon", "images/main/dragon.png", 120, 85, 4);
        game.load.image("background", "images/main/background.png");
        game.load.spritesheet("candy", "images/main/candy.png", 52, 50, 8);

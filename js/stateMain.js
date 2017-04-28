@@ -16,6 +16,8 @@ var StateMain={
        
     //CREATE *****************************************///////////////////////////////////////////
     create:function(){
+        //intiate variables
+        score = 0;
         
         game.physics.startSystem(Phaser.Physics.Arcade);
         
@@ -65,6 +67,18 @@ var StateMain={
         this.balloonGroup.scale.y = .5;
         this.balloonGroup.x = 50;
         
+        //text
+        this.scoreText = game.add.text(game.world.centerX, 60, "0");
+        this.scoreText.fill = "#000000";
+        this.scoreText.fontSize = 64;
+        this.scoreText.anchor.set(0.5, 0.5);
+        
+        
+        this.scorelabel = game.add.text(game.world.centerX, 20, "SCORE");
+        this.scorelabel.fill = "#000000";
+        this.scorelabel.fontSize = 32;
+        this.scorelabel.anchor.set(0.5, 0.5);
+        
         
         game.physics.enable([this.dragon, this.candies], Phaser.Physics.ARCADE);
         this.dragon.body.immovable = true;
@@ -98,6 +112,7 @@ var StateMain={
         candy.enabled = true;
         candy.body.velocity.x = -200;
     },
+    // Checking for mobile device orientation ************************************
     
      wrongWay: function () {
 
@@ -109,13 +124,28 @@ var StateMain={
         document.getElementById("wrongWay").style.display = "none";
     },
     
+    
+    
+    // how fast dragon flies up ******************************************************
+    
+    
     flap: function(){
         this.dragon.body.velocity.y = -350;
     },
       
     
     onEat: function(dragon, candy){
-        candy.kill();
+        if(this.think.frame == candy.frame){
+            candy.kill();
+            this.resetThink();
+            score++;
+            this.scoreText.text = score;
+        }
+        else{
+            candy.kill();
+            game.state.start("StateOver");
+        }
+        
     },
     
     resetThink: function(){ // randomize the candy in dragon's thoughts.
@@ -127,7 +157,7 @@ var StateMain={
     // UPDATE *******************************///////////////////////////////////////////
     
     update: function(){
-        game.physics.arcade.collide(this.dragon, this.candies,null, this.onEat);
+        game.physics.arcade.collide(this.dragon, this.candies,null, this.onEat, this);
     
         this.balloonGroup.y=this.dragon.y -60;
         

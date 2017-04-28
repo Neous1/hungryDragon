@@ -9,6 +9,9 @@ var StateMain={
        game.load.spritesheet("dragon", "images/main/dragon.png", 120, 85, 4);
        game.load.image("background", "images/main/background.png");
        game.load.spritesheet("candy", "images/main/candy.png", 52, 50, 8);
+       game.load.image("balloon", "images/main/thought.png");
+
+       
     },
        
     //CREATE *****************************************///////////////////////////////////////////
@@ -51,6 +54,18 @@ var StateMain={
         this.candies.setAll("checkWorldBounds", true);
         this.candies.setAll("outOfBoundsKill", true);
         
+        
+        //thought
+        this.balloonGroup = game.add.group();
+        this.balloon = game.add.sprite(0, 0, "balloon");
+        this.think = game.add.sprite(36, 26, "candy");
+        this.balloonGroup.add(this.balloon);
+        this.balloonGroup.add(this.think);
+        this.balloonGroup.scale.x = .5;
+        this.balloonGroup.scale.y = .5;
+        this.balloonGroup.x = 50;
+        
+        
         game.physics.enable([this.dragon, this.candies], Phaser.Physics.ARCADE);
         this.dragon.body.immovable = true;
         
@@ -59,6 +74,7 @@ var StateMain={
 
         
         this.setListeners();
+        this.resetThink();
     },
     
      setListeners: function () {
@@ -101,11 +117,20 @@ var StateMain={
     onEat: function(dragon, candy){
         candy.kill();
     },
+    
+    resetThink: function(){ // randomize the candy in dragon's thoughts.
+        var thinking = game.rnd.integerInRange(0,7);
+        this.think.frame = thinking;
+    },
+    
+    
     // UPDATE *******************************///////////////////////////////////////////
     
     update: function(){
         game.physics.arcade.collide(this.dragon, this.candies,null, this.onEat);
     
+        this.balloonGroup.y=this.dragon.y -60;
+        
         if(game.input.activePointer.isDown){
             this.flap();
         }

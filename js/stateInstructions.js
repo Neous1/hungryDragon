@@ -23,7 +23,7 @@ var StateInstructions={
         this.inText.fill="#000000";
         this.inText.anchor.set(.5, .5);
         
-               //thought
+        //thought
         this.balloonGroup = game.add.group();
         this.balloon = game.add.sprite(0, 0, "balloon");
         this.think = game.add.sprite(36, 26, "candy");

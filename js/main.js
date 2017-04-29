@@ -32,6 +32,7 @@ if (isMobile>-1)
     game.state.add("StateMain",StateMain);
     game.state.add("StateOver", StateOver);
     game.state.add("StateTitle", StateTitle);
+    game.state.add("StateInstructions", StateInstructions);
 //    game.state.start("StateMain");// start for testing only
     game.state.start("StateTitle");
 }

@@ -25,7 +25,7 @@ var StateMain={
         this.musicPlaying = false;
         this.lift = 550;
         this.fall = 1500;
-        this.delay = 1
+        this.delay = 2
         
         game.physics.startSystem(Phaser.Physics.Arcade);
         
@@ -60,7 +60,7 @@ var StateMain={
         this.dragon.animations.play("fly");
         
 
-        // brings the dragon to the top if background is build after declaring the dragon
+        // brings the dragon to the top if background is created after declaring the dragon
         this.dragon.y = this.top;    
         this.background.autoScroll(-100, 0);
         
@@ -153,6 +153,7 @@ var StateMain={
         }
     },
     
+    
     updateButtons: function(){
         if (soundOn == true){
             this.btnSound.frame = 0;
@@ -231,7 +232,7 @@ var StateMain={
     },
     
     
-    // UPDATE *******************************///////////////////////////////////////////
+    //Update ******************//Update ******************//Update ******************
     
     update: function(){
         game.physics.arcade.collide(this.dragon, this.candies,null, this.onEat, this);
